@@ -1,7 +1,9 @@
 const React = require('react');
 const ReactRouter = require('react-router');
+const ReactDOM = require('react-dom');
 const Router = ReactRouter.Router;
 const Route = ReactRouter.Route;
+const IndexRoute = ReactRouter.IndexRoute;
 const hashHistory = ReactRouter.hashHistory;
 
 const NavBar = require('./components/nav_bar');
