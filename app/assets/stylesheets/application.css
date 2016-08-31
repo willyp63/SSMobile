@@ -19,6 +19,7 @@
    margin: 0;
    padding: 0;
    border: 0;
+   outline: 0;
 
    font: inherit;
    color: inherit;
@@ -29,3 +30,14 @@
 
    background: transparent;
  }
+
+.main-content {
+  height: 80vh;
+}
+
+.cf:after {
+  content: "";
+  display: block;
+  height: 0px;
+  clear: both;
+}

@@ -1,0 +1,35 @@
+$num-items: 5;
+$player-bar-height: 10vh;
+$player-bar-color: #333;
+
+$player-bar-item-width: 100vw / $num-items;
+
+$icon-font-size: 5vh;
+$icon-color: #fff;
+
+$album-image-size: 7vh;
+
+.player-bar {
+  height: $player-bar-height;
+  background-color: $player-bar-color;
+}
+
+
+.player-bar .player-bar-item {
+  float: left;
+  height: $player-bar-height;
+  width: $player-bar-item-width;
+  text-align: center;
+}
+
+.player-bar .player-bar-item i {
+  color: $icon-color;
+  font-size: $icon-font-size;
+  margin-top: ($player-bar-height - $icon-font-size) / 2;
+}
+
+.player-bar img {
+  height: $album-image-size;
+  width: $album-image-size;
+  margin-top: ($player-bar-height - $album-image-size) / 2;
+}

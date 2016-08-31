@@ -1,5 +1,71 @@
+$nav-bar-height: 10vh;
+$nav-bar-color: #03e;
+
+$ss-logo-width: 20vw;
+$ss-logo-img-width: 17vw;
+$ss-logo-img-height: 5vh;
+
+$search-bar-padding-v: 0.5vh;
+$search-bar-padding-h: 1.5vw;
+$search-bar-height: 6vh;
+$search-bar-font-size: 4vh;
+$search-bar-border-radius: 1vh;
+
+$info-button-width: 15vw;
+$info-button-font-size: 4vh;
+
 .nav-bar {
-  height: 10vh;
-  width: 100vw;
-  background-color: blue;
+  height: $nav-bar-height;
+  background-color: $nav-bar-color;
+}
+
+.ss-logo {
+  float: left;
+  width: $ss-logo-width;
+  height: $nav-bar-height;
+  position: relative;
+}
+
+.ss-logo img {
+  position: absolute;
+  width: $ss-logo-img-width;
+  height: $ss-logo-img-height;
+  left: ($ss-logo-width - $ss-logo-img-width) / 2;
+  top:  ($nav-bar-height - $ss-logo-img-height) / 2;
+}
+
+.search-bar {
+  position: relative;
+  float: left;
+  width: 100vw - $ss-logo-width - $info-button-width;
+  height: $nav-bar-height;
+  font-size: $search-bar-font-size;
+}
+
+.search-bar .search-field {
+  width: 100vw - $ss-logo-width - $info-button-width - ($search-bar-padding-h * 2);
+  height: $search-bar-height;
+  margin-top: ($nav-bar-height - $search-bar-height - $search-bar-padding-v) / 2;
+  padding: $search-bar-padding-v $search-bar-padding-h;
+  border-radius: $search-bar-border-radius;
+  background-color: #fff;
+}
+
+.search-bar .glyphicon-search {
+  position: absolute;
+  width: $search-bar-font-size;
+  right: $search-bar-padding-h;
+  line-height: $search-bar-font-size;
+  top: ($nav-bar-height - $search-bar-font-size) / 2;
+  color: gray;
+}
+
+.info-button {
+  float: left;
+  width: $info-button-width;
+  height: $nav-bar-height;
+  line-height: $nav-bar-height;
+  font-size: $info-button-font-size;
+  text-align: center;
+  color: #fff;
 }

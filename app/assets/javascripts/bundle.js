@@ -55,6 +55,7 @@
 	var hashHistory = ReactRouter.hashHistory;
 	
 	var NavBar = __webpack_require__(97);
+	var PlayerBar = __webpack_require__(239);
 	
 	// always render nav bar and then child component
 	var App = React.createClass({
@@ -68,7 +69,8 @@
 	        'div',
 	        { className: 'main-content' },
 	        this.props.children
-	      )
+	      ),
+	      React.createElement(PlayerBar, null)
 	    );
 	  }
 	});
@@ -9930,7 +9932,31 @@
 	module.exports = React.createClass({
 	  displayName: 'exports',
 	  render: function render() {
-	    return React.createElement('div', { className: 'nav-bar' });
+	    return React.createElement(
+	      'div',
+	      { className: 'nav-bar' },
+	      React.createElement(
+	        'div',
+	        { className: 'ss-logo' },
+	        React.createElement('img', { src: '/assets/ss-logo.png' })
+	      ),
+	      React.createElement(
+	        'form',
+	        { className: 'search-bar', onSubmit: this._onSearch },
+	        React.createElement('input', { className: 'search-field',
+	          type: 'text',
+	          autoComplete: 'off',
+	          placeholder: 'Search...',
+	          onChange: this._onQueryChange }),
+	        React.createElement('i', { className: 'glyphicon glyphicon-search',
+	          onClick: this._onSearch })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'info-button' },
+	        '?'
+	      )
+	    );
 	  }
 	});
 
@@ -27157,6 +27183,61 @@
 	
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	  _showPlayer: function _showPlayer() {
+	    console.log('show player');
+	  },
+	  _playPause: function _playPause() {
+	    console.log('player pause');
+	  },
+	  _stepBack: function _stepBack() {
+	    console.log('step back');
+	  },
+	  _stepForward: function _stepForward() {
+	    console.log('step forward');
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'player-bar' },
+	      React.createElement(
+	        'div',
+	        { className: 'player-bar-item', onClick: this._stepBack },
+	        React.createElement('i', { className: 'glyphicon glyphicon-step-backward' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'player-bar-item', onClick: this._playPause },
+	        React.createElement('i', { className: 'glyphicon glyphicon-play' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'player-bar-item', onClick: this._stepForward },
+	        React.createElement('i', { className: 'glyphicon glyphicon-step-forward' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'player-bar-item' },
+	        React.createElement('img', { src: 'blank' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'player-bar-item', onClick: this._showPlayer },
+	        React.createElement('i', { className: 'glyphicon glyphicon-chevron-right' })
+	      )
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);

@@ -7,6 +7,7 @@ const IndexRoute = ReactRouter.IndexRoute;
 const hashHistory = ReactRouter.hashHistory;
 
 const NavBar = require('./components/nav_bar');
+const PlayerBar = require('./components/player_bar');
 
 // always render nav bar and then child component
 const App = React.createClass({
@@ -17,6 +18,7 @@ const App = React.createClass({
         <div className='main-content'>
           {this.props.children}
         </div>
+        <PlayerBar />
       </div>
     );
   }
