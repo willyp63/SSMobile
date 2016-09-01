@@ -37,8 +37,8 @@ module.exports = React.createClass({
 function resizeMainContent () {
   // resize main content based on player bar being active
   if (PlayerStore.track()) {
-    $('.main-content').height('68vh');
+    $('.main-content').height('69vh');
   } else {
-    $('.main-content').height('78vh');
+    $('.main-content').height('79vh');
   }
 }
