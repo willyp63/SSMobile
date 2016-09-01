@@ -8,11 +8,14 @@ const INITIAL_REQUEST_SIZE = 10;
 const ADDITIONAL_REQUEST_SIZE = 10;
 
 module.exports = React.createClass({
+  decodedQuery () {
+    return decodeURIComponent(this.props.params.query);
+  },
   _fetchInitialTracks () {
-    SpotifyActions.fetchTracks(this.props.params.query, INITIAL_REQUEST_SIZE, 0);
+    SpotifyActions.fetchTracks(decodedQuery, INITIAL_REQUEST_SIZE, 0);
   },
   _fetchMoreTracks (offset) {
-    SpotifyActions.fetchTracks(this.props.params.query, ADDITIONAL_REQUEST_SIZE, offset);
+    SpotifyActions.fetchTracks(decodedQuery, ADDITIONAL_REQUEST_SIZE, offset);
   },
   render () {
     return (
@@ -23,3 +26,7 @@ module.exports = React.createClass({
     );
   }
 });
+
+function decodedQuery () {
+
+}

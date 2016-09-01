@@ -29,11 +29,12 @@ module.exports = React.createClass({
     this.setState({tracks: TrackStore.tracks(), loading: false});
   },
   _onScroll () {
-    const maxScrollY = $('.main-content').height() - (2 * window.innerHeight);
-    if (!this.state.loading && window.scrollY >= maxScrollY) {
-      this.setState({loading: true});
-      const offset = this.state.tracks.length;
-      this.props.fetchMoreTracks(offset);
+    const maxScrollY = $('.track-index').height() - (2 * $('.main-content').height());
+    if (!this.state.loading && $('.main-content').scrollTop() >= maxScrollY) {
+      this.setState({loading: true}, function () {
+        const offset = this.state.tracks.length;
+        this.props.fetchMoreTracks(offset);
+      });
     }
   },
   render () {

@@ -34113,11 +34113,14 @@
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
+	  decodedQuery: function decodedQuery() {
+	    return decodeURIComponent(this.props.params.query);
+	  },
 	  _fetchInitialTracks: function _fetchInitialTracks() {
-	    SpotifyActions.fetchTracks(this.props.params.query, INITIAL_REQUEST_SIZE, 0);
+	    SpotifyActions.fetchTracks(decodedQuery, INITIAL_REQUEST_SIZE, 0);
 	  },
 	  _fetchMoreTracks: function _fetchMoreTracks(offset) {
-	    SpotifyActions.fetchTracks(this.props.params.query, ADDITIONAL_REQUEST_SIZE, offset);
+	    SpotifyActions.fetchTracks(decodedQuery, ADDITIONAL_REQUEST_SIZE, offset);
 	  },
 	  render: function render() {
 	    return React.createElement(
@@ -34128,6 +34131,8 @@
 	    );
 	  }
 	});
+	
+	function decodedQuery() {}
 
 /***/ },
 /* 263 */
@@ -34246,11 +34251,12 @@
 	    this.setState({ tracks: TrackStore.tracks(), loading: false });
 	  },
 	  _onScroll: function _onScroll() {
-	    var maxScrollY = $('.main-content').height() - 2 * window.innerHeight;
-	    if (!this.state.loading && window.scrollY >= maxScrollY) {
-	      this.setState({ loading: true });
-	      var offset = this.state.tracks.length;
-	      this.props.fetchMoreTracks(offset);
+	    var maxScrollY = $('.track-index').height() - 2 * $('.main-content').height();
+	    if (!this.state.loading && $('.main-content').scrollTop() >= maxScrollY) {
+	      this.setState({ loading: true }, function () {
+	        var offset = this.state.tracks.length;
+	        this.props.fetchMoreTracks(offset);
+	      });
 	    }
 	  },
 	  render: function render() {
