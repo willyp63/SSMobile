@@ -1,6 +1,6 @@
 $nav-bar-height: 10vh;
 $nav-bar-color-light: #04f;
-$nav-bar-color-dark: #01c;
+$nav-bar-color-dark: #00b;
 
 $ss-logo-width: 20vw;
 $ss-logo-img-width: 17vw;
@@ -9,8 +9,8 @@ $ss-logo-img-height: 5vh;
 $search-bar-padding-v: 0.5vh;
 $search-bar-padding-h: 1.5vw;
 $search-bar-height: 6vh;
-$search-bar-font-size: 4vh;
-$search-bar-border-radius: 1vh;
+$search-bar-font-size: 3vh;
+$search-bar-border-radius: 2vh;
 
 $info-button-width: 13vw;
 $info-button-font-size: 4vh;
@@ -44,9 +44,9 @@ $info-button-font-size: 4vh;
 }
 
 .search-bar .search-field {
-  width: 100vw - $ss-logo-width - $info-button-width - ($search-bar-padding-h * 2);
+  width: 100vw - $ss-logo-width - $info-button-width - (2 * $search-bar-padding-h);
   height: $search-bar-height;
-  margin-top: ($nav-bar-height - $search-bar-height - $search-bar-padding-v) / 2;
+  margin-top: ($nav-bar-height - $search-bar-height - (2 * $search-bar-padding-v)) / 2;
   padding: $search-bar-padding-v $search-bar-padding-h;
   border-radius: $search-bar-border-radius;
   background-color: #fff;

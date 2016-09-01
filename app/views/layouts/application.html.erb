@@ -2,10 +2,24 @@
 <html>
 <head>
   <title>SSMobile</title>
+
   <%= stylesheet_link_tag    'application', media: 'all' %>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+  <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+  <script>
+    const audio = document.createElement('audio');
+    if (audio.canPlayType('audio/ogg;codecs="opus"')) {
+      window.REQUIRED_ENCODING = 'opus';
+    } else if (audio.canPlayType('audio/mp4;codecs="aac"')) {
+      window.REQUIRED_ENCODING = 'aac';
+    } else {
+      window.REQUIRED_ENCODING = null;
+    }
+  </script>
 </head>
 <body>
 

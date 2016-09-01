@@ -19,7 +19,7 @@ module.exports = {
 function extractTrack (track) {
  const hasImage = !!track.album.images.length;
  return {title: track.name,
-         image_url: (hasImage ? track.album.images[1].url : ""),
+         image_url: (hasImage ? track.album.images[0].url : ""),
          artists: track.artists.map(artist => artist.name),
          id: track.id,
          duration_sec: track.duration_ms / 1000};

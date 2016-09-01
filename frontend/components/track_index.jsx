@@ -17,8 +17,9 @@ module.exports = React.createClass({
     this.props.fetchInitialTracks();
   },
   componentWillReceiveProps (newProps) {
-    this.setState({tracks: [], loading: true});
-    newProps.fetchInitialTracks();
+    this.setState({tracks: [], loading: true}, function () {
+      newProps.fetchInitialTracks();
+    });
   },
   componentWillUnmount () {
    window.removeEventListener('scroll', this._onScroll);

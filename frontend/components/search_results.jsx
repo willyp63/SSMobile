@@ -12,10 +12,10 @@ module.exports = React.createClass({
     return decodeURIComponent(this.props.params.query);
   },
   _fetchInitialTracks () {
-    SpotifyActions.fetchTracks(decodedQuery, INITIAL_REQUEST_SIZE, 0);
+    SpotifyActions.fetchTracks(this.decodedQuery(), INITIAL_REQUEST_SIZE, 0);
   },
   _fetchMoreTracks (offset) {
-    SpotifyActions.fetchTracks(decodedQuery, ADDITIONAL_REQUEST_SIZE, offset);
+    SpotifyActions.fetchTracks(this.decodedQuery(), ADDITIONAL_REQUEST_SIZE, offset);
   },
   render () {
     return (
