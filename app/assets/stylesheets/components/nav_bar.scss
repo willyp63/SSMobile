@@ -1,5 +1,6 @@
 $nav-bar-height: 10vh;
-$nav-bar-color: #03e;
+$nav-bar-color-light: #04f;
+$nav-bar-color-dark: #01c;
 
 $ss-logo-width: 20vw;
 $ss-logo-img-width: 17vw;
@@ -11,12 +12,12 @@ $search-bar-height: 6vh;
 $search-bar-font-size: 4vh;
 $search-bar-border-radius: 1vh;
 
-$info-button-width: 15vw;
+$info-button-width: 13vw;
 $info-button-font-size: 4vh;
 
 .nav-bar {
   height: $nav-bar-height;
-  background-color: $nav-bar-color;
+  background: linear-gradient($nav-bar-color-light, $nav-bar-color-dark);
 }
 
 .ss-logo {
