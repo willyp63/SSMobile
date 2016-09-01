@@ -27130,9 +27130,9 @@
 	function resizeMainContent() {
 	  // resize main content based on player bar being active
 	  if (PlayerStore.track()) {
-	    $('.main-content').height('70vh');
+	    $('.main-content').height('68vh');
 	  } else {
-	    $('.main-content').height('80vh');
+	    $('.main-content').height('78vh');
 	  }
 	}
 
