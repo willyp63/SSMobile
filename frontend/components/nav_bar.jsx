@@ -21,7 +21,7 @@ module.exports = React.createClass({
     return (
       <div className='nav-bar'>
         <div className='ss-logo' onClick={this._onHome}>
-          <img src='/assets/ss-logo.png' />
+          <img src='/ss-logo.png' />
         </div>
         <form className="search-bar" onSubmit={this._onSearch}>
           <input className="search-field"

@@ -33957,7 +33957,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'ss-logo', onClick: this._onHome },
-	        React.createElement('img', { src: '/assets/ss-logo.png' })
+	        React.createElement('img', { src: '/ss-logo.png' })
 	      ),
 	      React.createElement(
 	        'form',
