@@ -56,9 +56,9 @@
 	
 	// route components
 	var App = __webpack_require__(235);
-	var Splash = __webpack_require__(261);
-	var SearchResults = __webpack_require__(262);
-	var Player = __webpack_require__(263);
+	var Splash = __webpack_require__(266);
+	var SearchResults = __webpack_require__(267);
+	var Player = __webpack_require__(274);
 	
 	// Routes
 	var routes = React.createElement(
@@ -27091,7 +27091,7 @@
 	var PlayerStore = __webpack_require__(236);
 	
 	var NavBar = __webpack_require__(258);
-	var PlayerBar = __webpack_require__(260);
+	var PlayerBar = __webpack_require__(259);
 	
 	var _listeners = [];
 	
@@ -33986,35 +33986,12 @@
 
 	'use strict';
 	
-	var dispatcher = __webpack_require__(255);
-	
-	module.exports = {
-	  playTrack: function playTrack(track) {
-	    dispatcher.dispatch({
-	      actionType: 'PLAY_TRACK',
-	      track: track
-	    });
-	  },
-	  closePlayer: function closePlayer() {
-	    dispatcher.dispatch({
-	      actionType: 'PLAY_TRACK',
-	      track: null
-	    });
-	  }
-	};
-
-/***/ },
-/* 260 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	var React = __webpack_require__(1);
 	
 	var PlayerStore = __webpack_require__(236);
-	var YtidStore = __webpack_require__(269);
+	var YtidStore = __webpack_require__(260);
 	
-	var YtActions = __webpack_require__(270);
+	var YtActions = __webpack_require__(261);
 	
 	var _listeners = [];
 	
@@ -34108,264 +34085,7 @@
 	});
 
 /***/ },
-/* 261 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	  render: function render() {
-	    return React.createElement('div', { className: 'splash' });
-	  }
-	});
-
-/***/ },
-/* 262 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var SpotifyActions = __webpack_require__(264);
-	
-	var TrackIndex = __webpack_require__(266);
-	
-	var INITIAL_REQUEST_SIZE = 10;
-	var ADDITIONAL_REQUEST_SIZE = 10;
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	  decodedQuery: function decodedQuery() {
-	    return decodeURIComponent(this.props.params.query);
-	  },
-	  _fetchInitialTracks: function _fetchInitialTracks() {
-	    SpotifyActions.fetchTracks(this.decodedQuery(), INITIAL_REQUEST_SIZE, 0);
-	  },
-	  _fetchMoreTracks: function _fetchMoreTracks(offset) {
-	    SpotifyActions.fetchTracks(this.decodedQuery(), ADDITIONAL_REQUEST_SIZE, offset);
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'search-results' },
-	      React.createElement(TrackIndex, { fetchInitialTracks: this._fetchInitialTracks,
-	        fetchMoreTracks: this._fetchMoreTracks })
-	    );
-	  }
-	});
-	
-	function decodedQuery() {}
-
-/***/ },
-/* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	  render: function render() {
-	    return React.createElement('div', { className: 'player' });
-	  }
-	});
-
-/***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var dispatcher = __webpack_require__(255);
-	var SpotifyApi = __webpack_require__(265);
-	
-	module.exports = {
-	  fetchTracks: function fetchTracks(query, limit, offset) {
-	    SpotifyApi.fetchTracks(query, limit, offset, offset ? this.appendTracks : this.receiveTracks);
-	  },
-	  receiveTracks: function receiveTracks(tracks) {
-	    dispatcher.dispatch({
-	      actionType: 'RECEIVE_TRACKS',
-	      tracks: tracks
-	    });
-	  },
-	  appendTracks: function appendTracks(tracks) {
-	    dispatcher.dispatch({
-	      actionType: 'APPEND_TRACKS',
-	      tracks: tracks
-	    });
-	  }
-	};
-
-/***/ },
-/* 265 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var SPOTIFY_SEARCH_URL = 'https://api.spotify.com/v1/search';
-	
-	module.exports = {
-	  fetchTracks: function fetchTracks(query, limit, offset, returnTracks) {
-	    $.ajax({
-	      url: SPOTIFY_SEARCH_URL,
-	      data: { q: query, type: 'track', limit: limit, offset: offset },
-	      success: function success(response) {
-	        var tracks = response.tracks.items.map(extractTrack);
-	        returnTracks(tracks);
-	      },
-	      error: function error() {
-	        console.log('!!!Falied to connect to Spotify!!!');
-	      }
-	    });
-	  }
-	};
-	
-	function extractTrack(track) {
-	  var hasImage = !!track.album.images.length;
-	  return { title: track.name,
-	    image_url: hasImage ? track.album.images[0].url : "",
-	    artists: track.artists.map(function (artist) {
-	      return artist.name;
-	    }),
-	    id: track.id,
-	    duration_sec: track.duration_ms / 1000 };
-	}
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var TrackStore = __webpack_require__(268);
-	
-	var TrackIndexItem = __webpack_require__(267);
-	
-	var _listeners = [];
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	  getInitialState: function getInitialState() {
-	    return { tracks: [], loading: true };
-	  },
-	  componentWillMount: function componentWillMount() {
-	    window.addEventListener('scroll', this._onScroll);
-	    _listeners.push(TrackStore.addListener(this._onTrackChange));
-	
-	    this.props.fetchInitialTracks();
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-	    this.setState({ tracks: [], loading: true }, function () {
-	      newProps.fetchInitialTracks();
-	    });
-	  },
-	  componentWillUnmount: function componentWillUnmount() {
-	    window.removeEventListener('scroll', this._onScroll);
-	    _listeners.forEach(function (listener) {
-	      return listener.remove();
-	    });
-	  },
-	  _onTrackChange: function _onTrackChange() {
-	    console.log('tracks');
-	    this.setState({ tracks: TrackStore.tracks(), loading: false });
-	  },
-	  _onScroll: function _onScroll() {
-	    var maxScrollY = $('.track-index').height() - 2 * $('.main-content').height();
-	    if (!this.state.loading && $('.main-content').scrollTop() >= maxScrollY) {
-	      this.setState({ loading: true }, function () {
-	        var offset = this.state.tracks.length;
-	        this.props.fetchMoreTracks(offset);
-	      });
-	    }
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'track-index' },
-	      this.state.tracks.map(function (track) {
-	        return React.createElement(TrackIndexItem, { track: track, key: track.id });
-	      })
-	    );
-	  }
-	});
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var PlayerActions = __webpack_require__(259);
-	
-	module.exports = React.createClass({
-	  displayName: 'exports',
-	  _playTrack: function _playTrack() {
-	    PlayerActions.playTrack(this.props.track);
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'track-index-item', onClick: this._playTrack },
-	      React.createElement('img', { className: 'track-album-image', src: this.props.track.image_url }),
-	      React.createElement(
-	        'div',
-	        { className: 'track-title' },
-	        this.props.track.title
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'track-artist' },
-	        this.props.track.artists[0]
-	      )
-	    );
-	  }
-	});
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Store = __webpack_require__(237).Store;
-	var dispatcher = __webpack_require__(255);
-	
-	var _tracks = void 0;
-	
-	var TrackStore = new Store(dispatcher);
-	
-	TrackStore.tracks = function () {
-	  return _tracks;
-	};
-	
-	TrackStore.__onDispatch = function (payload) {
-	  switch (payload.actionType) {
-	    case 'RECEIVE_TRACKS':
-	      _tracks = payload.tracks;
-	      this.__emitChange();
-	      break;
-	    case 'APPEND_TRACKS':
-	      _tracks = _tracks || [];
-	      _tracks = _tracks.concat(payload.tracks);
-	      this.__emitChange();
-	      break;
-	  }
-	};
-	
-	module.exports = TrackStore;
-
-/***/ },
-/* 269 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34403,13 +34123,13 @@
 	module.exports = YtidStore;
 
 /***/ },
-/* 270 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var dispatcher = __webpack_require__(255);
-	var YtApi = __webpack_require__(271);
+	var YtApi = __webpack_require__(262);
 	
 	module.exports = {
 	  fetchYtid: function fetchYtid(track) {
@@ -34427,12 +34147,12 @@
 	};
 
 /***/ },
-/* 271 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Searcher = __webpack_require__(272);
+	var Searcher = __webpack_require__(263);
 	
 	// store requests until gapi has loaded
 	var _gapiLoaded = false;
@@ -34473,13 +34193,13 @@
 	}
 
 /***/ },
-/* 272 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var StringUtil = __webpack_require__(273);
-	var StringScorer = __webpack_require__(274);
+	var StringUtil = __webpack_require__(264);
+	var StringScorer = __webpack_require__(265);
 	
 	var NODE_SERVER_URL = 'thawing-bastion-97540.herokuapp.com';
 	
@@ -34876,7 +34596,7 @@
 	}
 
 /***/ },
-/* 273 */
+/* 264 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -34971,7 +34691,7 @@
 	};
 
 /***/ },
-/* 274 */
+/* 265 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -35050,6 +34770,286 @@
 	};
 	
 	module.exports = StringScorer;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	  render: function render() {
+	    return React.createElement('div', { className: 'splash' });
+	  }
+	});
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var SpotifyActions = __webpack_require__(268);
+	
+	var TrackIndex = __webpack_require__(270);
+	
+	var INITIAL_REQUEST_SIZE = 10;
+	var ADDITIONAL_REQUEST_SIZE = 10;
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	  decodedQuery: function decodedQuery() {
+	    return decodeURIComponent(this.props.params.query);
+	  },
+	  _fetchInitialTracks: function _fetchInitialTracks() {
+	    SpotifyActions.fetchTracks(this.decodedQuery(), INITIAL_REQUEST_SIZE, 0);
+	  },
+	  _fetchMoreTracks: function _fetchMoreTracks(offset) {
+	    SpotifyActions.fetchTracks(this.decodedQuery(), ADDITIONAL_REQUEST_SIZE, offset);
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'search-results' },
+	      React.createElement(TrackIndex, { fetchInitialTracks: this._fetchInitialTracks,
+	        fetchMoreTracks: this._fetchMoreTracks })
+	    );
+	  }
+	});
+	
+	function decodedQuery() {}
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var dispatcher = __webpack_require__(255);
+	var SpotifyApi = __webpack_require__(269);
+	
+	module.exports = {
+	  fetchTracks: function fetchTracks(query, limit, offset) {
+	    SpotifyApi.fetchTracks(query, limit, offset, offset ? this.appendTracks : this.receiveTracks);
+	  },
+	  receiveTracks: function receiveTracks(tracks) {
+	    dispatcher.dispatch({
+	      actionType: 'RECEIVE_TRACKS',
+	      tracks: tracks
+	    });
+	  },
+	  appendTracks: function appendTracks(tracks) {
+	    dispatcher.dispatch({
+	      actionType: 'APPEND_TRACKS',
+	      tracks: tracks
+	    });
+	  }
+	};
+
+/***/ },
+/* 269 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var SPOTIFY_SEARCH_URL = 'https://api.spotify.com/v1/search';
+	
+	module.exports = {
+	  fetchTracks: function fetchTracks(query, limit, offset, returnTracks) {
+	    $.ajax({
+	      url: SPOTIFY_SEARCH_URL,
+	      data: { q: query, type: 'track', limit: limit, offset: offset },
+	      success: function success(response) {
+	        var tracks = response.tracks.items.map(extractTrack);
+	        returnTracks(tracks);
+	      },
+	      error: function error() {
+	        console.log('!!!Falied to connect to Spotify!!!');
+	      }
+	    });
+	  }
+	};
+	
+	function extractTrack(track) {
+	  var hasImage = !!track.album.images.length;
+	  return { title: track.name,
+	    image_url: hasImage ? track.album.images[0].url : "",
+	    artists: track.artists.map(function (artist) {
+	      return artist.name;
+	    }),
+	    id: track.id,
+	    duration_sec: track.duration_ms / 1000 };
+	}
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var TrackStore = __webpack_require__(271);
+	
+	var TrackIndexItem = __webpack_require__(272);
+	
+	var _listeners = [];
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	  getInitialState: function getInitialState() {
+	    return { tracks: [], loading: true };
+	  },
+	  componentWillMount: function componentWillMount() {
+	    window.addEventListener('scroll', this._onScroll);
+	    _listeners.push(TrackStore.addListener(this._onTrackChange));
+	
+	    this.props.fetchInitialTracks();
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+	    this.setState({ tracks: [], loading: true }, function () {
+	      newProps.fetchInitialTracks();
+	    });
+	  },
+	  componentWillUnmount: function componentWillUnmount() {
+	    window.removeEventListener('scroll', this._onScroll);
+	    _listeners.forEach(function (listener) {
+	      return listener.remove();
+	    });
+	  },
+	  _onTrackChange: function _onTrackChange() {
+	    console.log('tracks');
+	    this.setState({ tracks: TrackStore.tracks(), loading: false });
+	  },
+	  _onScroll: function _onScroll() {
+	    var maxScrollY = $('.track-index').height() - 2 * $('.main-content').height();
+	    if (!this.state.loading && $('.main-content').scrollTop() >= maxScrollY) {
+	      this.setState({ loading: true }, function () {
+	        var offset = this.state.tracks.length;
+	        this.props.fetchMoreTracks(offset);
+	      });
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'track-index' },
+	      this.state.tracks.map(function (track) {
+	        return React.createElement(TrackIndexItem, { track: track, key: track.id });
+	      })
+	    );
+	  }
+	});
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Store = __webpack_require__(237).Store;
+	var dispatcher = __webpack_require__(255);
+	
+	var _tracks = void 0;
+	
+	var TrackStore = new Store(dispatcher);
+	
+	TrackStore.tracks = function () {
+	  return _tracks;
+	};
+	
+	TrackStore.__onDispatch = function (payload) {
+	  switch (payload.actionType) {
+	    case 'RECEIVE_TRACKS':
+	      _tracks = payload.tracks;
+	      this.__emitChange();
+	      break;
+	    case 'APPEND_TRACKS':
+	      _tracks = _tracks || [];
+	      _tracks = _tracks.concat(payload.tracks);
+	      this.__emitChange();
+	      break;
+	  }
+	};
+	
+	module.exports = TrackStore;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	var PlayerActions = __webpack_require__(273);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	  _playTrack: function _playTrack() {
+	    PlayerActions.playTrack(this.props.track);
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'track-index-item', onClick: this._playTrack },
+	      React.createElement('img', { className: 'track-album-image', src: this.props.track.image_url }),
+	      React.createElement(
+	        'div',
+	        { className: 'track-title' },
+	        this.props.track.title
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'track-artist' },
+	        this.props.track.artists[0]
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var dispatcher = __webpack_require__(255);
+	
+	module.exports = {
+	  playTrack: function playTrack(track) {
+	    dispatcher.dispatch({
+	      actionType: 'PLAY_TRACK',
+	      track: track
+	    });
+	  },
+	  closePlayer: function closePlayer() {
+	    dispatcher.dispatch({
+	      actionType: 'PLAY_TRACK',
+	      track: null
+	    });
+	  }
+	};
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	module.exports = React.createClass({
+	  displayName: 'exports',
+	  render: function render() {
+	    return React.createElement('div', { className: 'player' });
+	  }
+	});
 
 /***/ }
 /******/ ]);

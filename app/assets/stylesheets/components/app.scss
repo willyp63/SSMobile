@@ -1,3 +1,31 @@
+html, body, form, div, ul, li, a, h1, h2, h3, h4, h5, span, nav,
+i, input, button, p, img, label {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+
+  background: transparent;
+}
+
+.cf:after {
+  content: "";
+  display: block;
+  height: 0px;
+  clear: both;
+}
+
+body {
+  overflow-y: hidden;
+}
+
 .main-content {
   height: 80vh;
   overflow-y: scroll;
