@@ -22,11 +22,6 @@ i, input, button, p, img, label {
   clear: both;
 }
 
-body, #root {
-  overflow: hidden;
-  overflow-y: hidden;
-}
-
 .main-content {
   height: 80vh;
   overflow-y: scroll;
