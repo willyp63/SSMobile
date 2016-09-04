@@ -34010,7 +34010,7 @@
 	    });
 	  },
 	  _onPlayerChange: function _onPlayerChange() {
-	    this.setState({ track: PlayerStore.track(), loading: true }, function () {
+	    this.setState({ track: PlayerStore.track(), loading: true, playing: false }, function () {
 	      YtActions.fetchYtid(this.state.track);
 	    });
 	  },
@@ -34047,7 +34047,7 @@
 	      return React.createElement(
 	        'div',
 	        { className: 'player-bar' },
-	        this.state.audio_url ? React.createElement(
+	        !this.state.loading && this.state.audio_url ? React.createElement(
 	          'audio',
 	          { id: 'audio-player' },
 	          React.createElement('source', { src: this.state.audio_url })
@@ -34075,7 +34075,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'player-bar-item', onClick: this._showPlayer },
-	          React.createElement('i', { className: 'glyphicon glyphicon-chevron-down' })
+	          React.createElement('i', { className: 'glyphicon glyphicon-chevron-up' })
 	        )
 	      );
 	    } else {

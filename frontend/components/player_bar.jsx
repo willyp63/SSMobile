@@ -19,7 +19,7 @@ module.exports = React.createClass({
     _listeners.forEach(listener => listener.remove());
   },
   _onPlayerChange () {
-    this.setState({track: PlayerStore.track(), loading: true}, function () {
+    this.setState({track: PlayerStore.track(), loading: true, playing: false}, function () {
       YtActions.fetchYtid(this.state.track);
     });
   },
@@ -53,7 +53,7 @@ module.exports = React.createClass({
     if (this.state.track) {
       return (
         <div className='player-bar'>
-          {this.state.audio_url ?
+          {!this.state.loading && this.state.audio_url ?
               <audio id="audio-player">
                 <source src={this.state.audio_url} />
               </audio> : ""}
@@ -76,7 +76,7 @@ module.exports = React.createClass({
             <img src={this.state.track.image_url} />
           </div>
           <div className='player-bar-item' onClick={this._showPlayer}>
-            <i className='glyphicon glyphicon-chevron-down' />
+            <i className='glyphicon glyphicon-chevron-up' />
           </div>
         </div>
       );

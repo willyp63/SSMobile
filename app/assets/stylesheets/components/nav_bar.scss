@@ -4,6 +4,7 @@ $nav-bar-color-dark: #00b;
 
 $ss-logo-width: 20vw;
 $ss-logo-img-width: 17vw;
+$ss-logo-img-max-width: 12vh;
 $ss-logo-img-height: 5vh;
 
 $search-bar-padding-v: 0.5vh;
@@ -24,15 +25,15 @@ $info-button-font-size: 4vh;
   float: left;
   width: $ss-logo-width;
   height: $nav-bar-height;
-  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .ss-logo img {
-  position: absolute;
   width: $ss-logo-img-width;
+  max-width: $ss-logo-img-max-width;
   height: $ss-logo-img-height;
-  left: ($ss-logo-width - $ss-logo-img-width) / 2;
-  top:  ($nav-bar-height - $ss-logo-img-height) / 2;
 }
 
 .search-bar {
