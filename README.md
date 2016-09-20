@@ -1,5 +1,17 @@
 # SoundScape Mobile Site
 
+SoundScape's Mobile Site
+
+Design is meant to be incredibly responsive and usable across all mobile devices (phones and tablets).
+We are currently encountering issues with iOS and Android audio/background-processing limitations.
+
+(Still under development...)  
+
+![screenshot]
+[screenshot]: ./docs/screenshots/screenshot.jpg
+
+## TODO
+
 - [ ] Setup NavBar and Router to navigate through 3 different route components.
   - splash
   - search results
